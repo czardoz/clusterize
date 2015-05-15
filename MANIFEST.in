@@ -1,0 +1,3 @@
+recursive-include clusterize *
+include README.rst
+include requirements.txt

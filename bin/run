@@ -1,0 +1,25 @@
+import argparse
+import json
+import sys
+
+from cluster import HierarchicalClustering
+from clusterize.distance import _StringDistance
+from clusterize.lcs_cffi import get_lcs
+
+
+def distance(url1, url2):
+    similarity = _StringDistance(url1, url2).measure()
+    return 1.0 - similarity  # Greater the similarity, lesser the distance.
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-i', '--input', required=True, help='Path to the input file')
+
+    args = parser.parse_args()
+
+    with open(args.input, 'r') as f:
+        urls = json.load(f)
+
+    clusters = HierarchicalClustering(urls, distance).getlevel(0.6)
+    print json.dumps(clusters, indent=2)
