@@ -1,10 +1,8 @@
 import argparse
 import json
-import sys
 
 from cluster import HierarchicalClustering
 from clusterize.distance import _StringDistance
-from clusterize.lcs_cffi import get_lcs
 
 
 def distance(url1, url2):
